@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>HomeDash</title>
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/eliotstocker/homedash/main/public/icon.png" />
+    <link rel="manifest" href="./assets/app.json" />
+    <script src="./config.js" ></script>
+    <script type="module" src="./src/index.ts" ></script>
+    <link rel="stylesheet" href="./src/styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body >
+    <%- loader -%>
+    <div class="popover-container"></div>
+    <div class="sidebar">
+      <div class="name">HomeDash...</div>
+      <ul class="menu"></ul>
+    </div>
+    <div class="container">
+      <div class="room-controls">
+        <div class="edit-toggle-container">
+          <h3>Edit Layout</h3>
+          <input type="checkbox" class="edit-mode">
+        </div>
+        <div class="room-settings-button">
+          <span class="btn material-symbols-outlined">
+            settings</span>
+        </div>
+      </div>
+      <button class="mobile-sidebar-toggle">|||</button>
+      <h1 class="room">Loading Room...</h1>
+      <device-grid class="main-canvas"></device-grid>
+    </div>
+    <info-bar class="info"></info-bar>
+  </body>
+</html>

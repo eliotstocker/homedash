@@ -1,0 +1,25 @@
+:root {
+    --infobar-width: 0px;
+    --infobar-min-width: 0px;
+}
+
+
+.infobar {
+    --infobar-width: 25vw;
+    --infobar-min-width: 200px;
+}
+
+.info {
+    display: none;
+    vertical-align: top;
+    width: var(--infobar-width);
+    min-width: var(--infobar-min-width);
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+}
+
+.infobar .info {
+    display: block;
+}

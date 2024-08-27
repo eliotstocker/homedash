@@ -1,0 +1,11 @@
+{
+  "version": "0.1.0",
+  "index": "index.html",
+  "assets": [
+    "assets/vendor.js",
+    "assets/index.css",
+    "assets/index.js",
+    "assets/app.json",
+    "assets/icon.png"
+  ]
+}

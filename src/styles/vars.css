@@ -1,0 +1,13 @@
+:root {
+    --tile-width: 210px;
+    --tile-height: 90px;
+    --tile-roundness: 3px;
+    --tile-text-color: #DDDDDD;
+    --tile-text-inverse: #333333;
+    --tile-default-active-color: 0, 181, 221;
+    --tile-button-size: 25px;
+    --tile-icon-size: 20px;
+    --tile-button-background: rgba(0, 0, 0, 0.15);
+    --tile-name-size: 12px;
+    --tile-gap: 12px;
+}

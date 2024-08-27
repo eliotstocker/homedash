@@ -1,0 +1,40 @@
+.popover {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 450px;
+    height: 500px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.85);
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    backdrop-filter: blur(8px);
+    padding: 12px;
+    max-width: calc(100% - 12px);
+}
+
+.popover .button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+    padding: 4px;
+    cursor: pointer;
+}
+
+.popover .title {
+    font-weight: 100;
+}
+
+.popover .popover-canvas {
+    width: 100%;
+    gap: var(--tile-gap);
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: repeat(auto-fill, 210px);
+    grid-auto-rows: 90px;
+    justify-content: center;
+    box-sizing: border-box;
+}

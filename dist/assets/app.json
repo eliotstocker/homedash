@@ -1,0 +1,15 @@
+{
+    "name": "HomeDash",
+    "short_name": "HomeDash",
+    "start_url": "::full_path::",
+    "background_color": "#2C04A8",
+    "description": "A simple home dashboard for smart home control",
+    "icons": [
+      {
+        "src": "https://github.com/eliotstocker/Light-Controller/blob/master/assets/icon-512.png?raw=true",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+    "display": "standalone"
+  }

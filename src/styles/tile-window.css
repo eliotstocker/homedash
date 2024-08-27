@@ -1,0 +1,66 @@
+.tile.window {
+    position: relative;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.tile.window:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--tile-text-inverse);
+    cursor: pointer;
+}
+
+.tile.window .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 50%;
+    background: rgb(var(--tile-default-active-color));
+    z-index: -1;
+    opacity: 0.75;
+}
+
+.tile.window .button {
+    background: var(--tile-button-background);
+    width: var(--tile-button-size);
+    height: var(--tile-button-size);
+    margin: 8px;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tile.window .button .icon {
+    font-size: var(--tile-icon-size);
+    line-height: var(--tile-button-size)
+}
+
+.tile.window .button.open {
+    display: none;
+}
+
+.tile.window.open .button.closed {
+    display: inline-block;
+}
+
+.tile.window.open .button.open {
+    display: inline-block;
+}
+
+.tile.window.on .button.closed {
+    display: none;
+}
+.tile.window .name {
+    display: inline-block;
+    font-size: var(--tile-name-size);
+}
+
+.tile.window .level {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-size: 13px;
+    opacity: 0.75;
+}

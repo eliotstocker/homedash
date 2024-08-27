@@ -1,0 +1,33 @@
+{
+  "name": "homedash",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "start": "DEV_CONFIG=true vite serve --host",
+    "assetServer": "serve -l 8021 dist/"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jaames/iro": "^5.5.2",
+    "@reduxjs/toolkit": "^2.2.7",
+    "axios": "^1.6.5",
+    "lit": "^3.1.1",
+    "pwa-helpers": "^0.9.1",
+    "redux": "^5.0.1",
+    "redux-watch": "^1.2.0",
+    "reselect": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "serve": "^14.2.1",
+    "terser": "^5.29.2",
+    "vite": "^5.0.11",
+    "vite-plugin-html": "^3.2.2",
+    "vite-plugin-query-hash": "^1.0.0",
+    "vite-plugin-static-copy": "^1.0.2"
+  }
+}
