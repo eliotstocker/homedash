@@ -38,6 +38,10 @@ export default class TileClickable extends TileEditable {
     }
 
     _mouseDown(event: MouseEvent|TouchEvent) {
+        if(this.editing) {
+            return;
+        }
+        
         this.preventMouseEmulation(event);
         this.longClickTimeout = setTimeout(this._onLongClick.bind(this), 250);
     }
@@ -62,7 +66,9 @@ export default class TileClickable extends TileEditable {
 
     preventMouseEmulation(event:MouseEvent|TouchEvent) {
         if(event.type.startsWith('touch')) {
-            event.preventDefault();
+            try {
+                event.preventDefault();
+            } catch(e) {}
         }
     }
 }

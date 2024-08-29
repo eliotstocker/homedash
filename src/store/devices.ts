@@ -38,9 +38,18 @@ const devicesSlice = createSlice({
       }
       
       Object.assign(device.state, action.payload.state);
+    },
+    setDevicePrefs(state, action: {payload: {device: number, prefs: object}}) {
+      let device = state.find(({id}) => id == action.payload.device);
+
+      if(!device) {
+        return; //cant find device :(
+      }
+      
+      Object.assign(device.prefs, action.payload.prefs);
     }
   },
 });
 
-export const { deviceAdd, deviceRefresh, setDeviceState, updateDeviceState } = devicesSlice.actions;
+export const { deviceAdd, deviceRefresh, setDeviceState, updateDeviceState, setDevicePrefs } = devicesSlice.actions;
 export default devicesSlice.reducer;

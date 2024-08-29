@@ -146,17 +146,23 @@ export default class Tile extends connect(store)(LitElement) {
     stateChanged(state) {
         this.receiving = true;
         const device = state.devices.find(({id}) => id == this.id);
-        let tileState;
+
+        let tileItem:iItemModel;
 
         if(!device) {
             const group = state.groups.find(({id}) => id == this.id);
-            tileState = GroupModel.fromObject(group, state.devices).getState();
+            tileItem = GroupModel.fromObject(group, state.devices);
         } else {
-            tileState = DeviceModel.fromObject(device).getState();
+            tileItem = DeviceModel.fromObject(device);
         }
         
 
-        Object.entries(tileState).forEach(([k, v]) => {
+        Object.entries(tileItem.getState()).forEach(([k, v]) => {
+            //console.log(this.id, 'set: ', k, v);
+            this[k] = v;
+        });
+
+        Object.entries(tileItem.getPrefs()).forEach(([k, v]) => {
             //console.log(this.id, 'set: ', k, v);
             this[k] = v;
         });

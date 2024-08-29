@@ -7,7 +7,7 @@ import Tile from './tiles/tile-base';
 import iItemModel, {iItem} from '../models/iItem';
 
 import { connect } from 'pwa-helpers';
-import store, {getRoom, swapDevicesInRoom} from '../state';
+import store, {getGroup, getRoom, swapDevicesInRoom} from '../state';
 
 @customElement('device-grid')
 export default class DeviceGrid extends connect(store)(LitElement) {
@@ -69,12 +69,11 @@ export default class DeviceGrid extends connect(store)(LitElement) {
         }
     }
 
-    // stateChanged(state) {
-    //     console.log('grid state changed:', state);
-    // }
-
     get devices(): iItemModel[] {
-        return getRoom(this.gridId)?.devices
+        if(this.room) {
+            return getRoom(this.gridId)?.devices || [];
+        }
+        return getGroup(this.gridId)?.devices || [];
     }
 
     render() {

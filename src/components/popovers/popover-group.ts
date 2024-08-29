@@ -45,7 +45,7 @@ export default class PopoverGroup extends Popover {
     renderContent(): TemplateResult {
         return html`<div class="grid-container">
             <div class="inner-container">
-                <device-grid .devices=${this.devices} .home=${this.home} .onItemChange=${this.onItemChange} />
+                <device-grid .home=${this.home} grid-id=${this.id}></device-grid>
             </div>
         </div>`;
     }

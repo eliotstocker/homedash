@@ -6,7 +6,7 @@
     "description": "A simple home dashboard for smart home control",
     "icons": [
       {
-        "src": "https://github.com/eliotstocker/Light-Controller/blob/master/assets/icon-512.png?raw=true",
+        "src": "https://raw.githubusercontent.com/eliotstocker/homedash/main/public/icon.png",
         "type": "image/png",
         "sizes": "256x256"
       }

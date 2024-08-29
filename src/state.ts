@@ -3,13 +3,16 @@ import watch from 'redux-watch'
 import appReducer, { setRoom as setRoomAction } from './store/app';
 import homeReducer, { homeUpdated, initHome } from './store/home';
 import roomReducer, { roomAdd, roomRefresh, swapDeviceOrder } from './store/rooms';
-import devicesReducer, { deviceAdd, deviceRefresh, setDeviceState as setDeviceStateAction, updateDeviceState } from './store/devices';
+import devicesReducer, { deviceAdd, deviceRefresh, setDevicePrefs as setDevicePrefsAction, setDeviceState as setDeviceStateAction, updateDeviceState } from './store/devices';
 import groupReducer, { groupAdd } from './store/groups';
 import RoomModel, { type Room } from "./models/room";
 import iProvider from "./providers/iProvider";
 import DeviceModel, { Device } from "./models/device";
 import changeListenerMiddleware from './store/changeListener';
 import urlReflectorMiddleware from './store/urlReflector';
+import GroupModel from './models/group';
+import { group } from 'console';
+import { State } from './models/state';
 
 export const store = configureStore({
     reducer: {
@@ -75,6 +78,11 @@ export function getRoom(id: Number) : RoomModel {
     return RoomModel.fromObject(rooms.find(room => room.id == id), devices, groups);
 }
 
+export function getGroup(id: number) : GroupModel {
+    const {devices, groups} = store.getState();
+    return GroupModel.fromObject(groups.find(group => group.id == id), devices);
+}
+
 export function swapDevicesInRoom(room: number, devices: number[]) {
     store.dispatch(swapDeviceOrder({roomId: room, swapDevices: devices}));
 }
@@ -110,6 +118,10 @@ export function setDeviceState(deviceId: number, changes: Map<string, any>) {
         device: deviceId,
         state: Object.fromEntries(changes)
     }));
+}
+
+export function setDevicePrefs(deviceId:number, prefs) {
+    store.dispatch(setDevicePrefsAction({device: deviceId, prefs}));
 }
 
 function shouldDispatchUpdate(device: Device, state: State) {

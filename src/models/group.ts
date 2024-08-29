@@ -16,7 +16,7 @@ export default class GroupModel implements iItemModel {
     public type:deviceTypes;
     public label:string;
     public id:number;
-    public devices:Device[] = [];
+    public devices:DeviceModel[] = [];
     public persisted:boolean = false;
 
     constructor(name:string, type:deviceTypes, id?:number) {

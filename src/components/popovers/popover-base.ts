@@ -112,9 +112,9 @@ export default class Popover extends LitElement {
     renderGroupControlsForType() {
         switch (this.type) {
             case "light":
-                return html`<controls-light .meta=${this.item.getMeta()} ${spread(this.item.getState())} .item=${this.item}/>`
+                return html`<controls-light id=${this.id} .meta=${this.item.getMeta()} ${spread(this.item.getState())}/>`
             case "switch":
-                return html`<controls-switch ${spread(this.item.getPrefs())} .item=${this.item}/>`
+                return html`<controls-switch id=${this.id} ${spread(this.item.getPrefs())}/>`
         }
     }
 }

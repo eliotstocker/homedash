@@ -2,9 +2,12 @@ import {html, css, LitElement} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import { Ref, createRef, ref } from 'lit/directives/ref.js';
 import iro from '@jaames/iro';
+import { connect } from 'pwa-helpers';
+import store, {setDeviceState } from '../../../state';
+
 
 @customElement('controls-light')
-export default class LightControls extends LitElement {
+export default class LightControls extends connect(store)(LitElement) {
     static styles? = css`
     :host {
         display: flex;
@@ -48,9 +51,6 @@ export default class LightControls extends LitElement {
     colorPicker:ColorPicker;
 
     @property({attribute: false})
-    item: iItem;
-
-    @property({attribute: false})
     meta: lightMeta = {color: false, ct: false, level: false};
 
     @property({type: String})
@@ -67,6 +67,8 @@ export default class LightControls extends LitElement {
 
     @property({type: Number})
     level: number;
+
+    initialised: boolean = false;
 
     render() {
         return html`
@@ -132,7 +134,7 @@ export default class LightControls extends LitElement {
                 ]
             });
 
-            this.colorPicker.on('color:change', color => {
+            this.colorPicker.on('input:end', color => {
                 this.hue = color.hsv.h;
                 this.saturation = color.hsv.s;
             });
@@ -140,16 +142,16 @@ export default class LightControls extends LitElement {
             delete this.colorPicker;
         }
 
-        if(this.item.el) {
-            const ignoredProps = this.item.el.constructor.ignoredProperties;
-            const filteredProps = [...props.keys()].filter(key => !ignoredProps.includes(key));
+        if(!this.initialised) {
+            this.initialised = true;
+            return;
+        }
 
-            if(filteredProps.length > 0) {
-                filteredProps.forEach(key => {
-                    this.item.el[key] = this[key];
-                    this.item.el.requestUpdate();
-                });
-            }
+        const filteredProps = [...props].filter(([key, value]) => value != this[key]).map(([key]) => key);
+
+        if(filteredProps.length > 0) {
+            const observedChanges = new Map(filteredProps.map(key => ([key, this[key]])));
+            setDeviceState(parseInt(this.id, 10), observedChanges);
         }
     }
 

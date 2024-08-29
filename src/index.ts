@@ -10,7 +10,7 @@ import Hubitat from "./providers/hubitat";
 import iProvider, { providerEvents } from "./providers/iProvider";
 
 import store, {fromProvider, fromProviderUpdate, getRoom, refreshDevices, refreshRoom, setRoom, subscribeToChanges} from "./state";
-import { addEventListener } from "./store/changeListener";
+import { addEventListener, deviceActionCallbacks } from "./store/changeListener";
 
 if(!window.__homedash_config || !window.__homedash_config.provider) {
     //TODO: show error about missing config
@@ -127,6 +127,7 @@ function openPopup(device: iItemModel) {
         popover = document.createElement('popover-device') as PopoverDevice;
     }
 
+    popover.id = device.id;
     popover.title = device.label;
     popover.type = device.type;
     popover.item = device;
@@ -159,9 +160,15 @@ function init() {
     setupMobileMenu();
     setupEditMode();
 
-    addEventListener((device, changes) => {
+    addEventListener(deviceActionCallbacks.stateSet, (device, changes) => {
         Object.entries(changes).forEach(([attribute, value]) => {
             provider.setDeviceValue(device, attribute, value)
+        })
+    });
+
+    addEventListener(deviceActionCallbacks.prefSet, (device, changes) => {
+        Object.entries(changes).forEach(([attribute, value]) => {
+            provider.setDeviceValue(device, attribute, value);
         })
     });
 

@@ -75,7 +75,7 @@ export default class TileDraggable extends TileClickable {
         if(event instanceof TouchEvent && event.changedTouches) { //fix dragging bug on mobile
           let delta = event.changedTouches[0].clientX - this.dragStartAbsolutePosition[0];
 
-          if(delta < 10 || delta > -10 ) {
+          if((delta < 10 && delta > 0) || (delta < 0 && delta > -10)) {
             return;
           }
         }
