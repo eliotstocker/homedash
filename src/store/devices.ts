@@ -17,7 +17,7 @@ const devicesSlice = createSlice({
       const device = state.find(({id}) => id == action.payload.id);
 
       if(!device) {
-        this.deviceAdd(state, action);
+        state.push(structuredClone(action.payload));
         return;
       }
 

@@ -10,7 +10,7 @@ import Hubitat from "./providers/hubitat";
 import iProvider, { providerEvents } from "./providers/iProvider";
 
 import store, {fromProvider, fromProviderUpdate, getRoom, refreshDevices, refreshRoom, setRoom, subscribeToChanges} from "./state";
-import { addEventListener, deviceActionCallbacks } from "./store/changeListener";
+import { addEventListener, actionCallbacks } from "./store/changeListener";
 
 if(!window.__homedash_config || !window.__homedash_config.provider) {
     //TODO: show error about missing config
@@ -49,6 +49,7 @@ function setupEditMode() {
     settingsButton.addEventListener('click', () => {
         openRoomSettings(getCurrentRoom());
     });
+    
 }
 
 function setName() {
@@ -146,7 +147,7 @@ function openRoomSettings(roomId: number) {
     const popover = document.createElement('popover-room-settings') as PopoverRoomSettings;
 
     popover.title = room.name;
-    popover.room = room;
+    popover.id = room.id;
     popover.onPrefChange = roomPrefChange;
     popover.setBackground = setBackground;
     popover.onClose = closePopup;
@@ -160,15 +161,22 @@ function init() {
     setupMobileMenu();
     setupEditMode();
 
-    addEventListener(deviceActionCallbacks.stateSet, (device, changes) => {
+    addEventListener(actionCallbacks.deviceStateSet, (device, changes) => {
         Object.entries(changes).forEach(([attribute, value]) => {
             provider.setDeviceValue(device, attribute, value)
         })
     });
 
-    addEventListener(deviceActionCallbacks.prefSet, (device, changes) => {
+    addEventListener(actionCallbacks.devicePrefSet, (device, changes) => {
         Object.entries(changes).forEach(([attribute, value]) => {
             provider.setDeviceValue(device, attribute, value);
+        })
+    });
+
+    addEventListener(actionCallbacks.roomPrefSet, (room, changes) => {
+        setBackground(getRoom(room).prefs);
+        Object.entries(changes).forEach(([attribute, value]) => {
+            provider.setRoomPref(room, attribute, value);
         })
     });
 
@@ -199,6 +207,8 @@ function getCurrentRoom(): number {
 }
 
 function setBackground(prefs: RoomPrefs): void {
+    console.log(prefs);
+
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(prefs?.bgColor?.[0] ?? '#1a50e2');
     const tileActive = rgb ? `${parseInt(rgb[1], 16) + 25}, ${parseInt(rgb[2], 16) + 25}, ${parseInt(rgb[3], 16) + 25}` : '';
 

@@ -2,7 +2,7 @@ import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import watch from 'redux-watch'
 import appReducer, { setRoom as setRoomAction } from './store/app';
 import homeReducer, { homeUpdated, initHome } from './store/home';
-import roomReducer, { roomAdd, roomRefresh, swapDeviceOrder } from './store/rooms';
+import roomReducer, { roomAdd, roomRefresh, swapDeviceOrder, setRoomPrefs as setRoomPrefsAction } from './store/rooms';
 import devicesReducer, { deviceAdd, deviceRefresh, setDevicePrefs as setDevicePrefsAction, setDeviceState as setDeviceStateAction, updateDeviceState } from './store/devices';
 import groupReducer, { groupAdd } from './store/groups';
 import RoomModel, { type Room } from "./models/room";
@@ -11,7 +11,6 @@ import DeviceModel, { Device } from "./models/device";
 import changeListenerMiddleware from './store/changeListener';
 import urlReflectorMiddleware from './store/urlReflector';
 import GroupModel from './models/group';
-import { group } from 'console';
 import { State } from './models/state';
 
 export const store = configureStore({
@@ -122,6 +121,10 @@ export function setDeviceState(deviceId: number, changes: Map<string, any>) {
 
 export function setDevicePrefs(deviceId:number, prefs) {
     store.dispatch(setDevicePrefsAction({device: deviceId, prefs}));
+}
+
+export function setRoomPrefs(roomId:number, prefs: {bgColor: string[], bgAngle: number}) {
+    store.dispatch(setRoomPrefsAction({room: roomId, prefs}));
 }
 
 function shouldDispatchUpdate(device: Device, state: State) {

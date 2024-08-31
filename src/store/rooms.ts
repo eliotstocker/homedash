@@ -11,8 +11,6 @@ const roomsSlice = createSlice({
         state.push(structuredClone(action.payload));
     },
     roomRefresh(state, action: {payload:Room}) {
-      //replace or add room;
-      //replace or add device;
       const room = state.find(({id}) => id == action.payload.id);
 
       if(!room) {
@@ -25,25 +23,22 @@ const roomsSlice = createSlice({
       });
     },
     swapDeviceOrder(state, action: {payload: {roomId: number, swapDevices: number[]}}) {
-      console.log(state);
-
       const room = state.find(({id}) => id == action.payload.roomId);
-
-      console.log(room, action.payload.roomId);
-
       const swapDevices = action.payload.swapDevices;
 
       const devices = room.devices;
-      console.log(devices.indexOf(swapDevices[0]), devices.indexOf(swapDevices[1])); 
-
       devices[devices.indexOf(swapDevices[0])] = devices.splice(devices.indexOf(swapDevices[1]), 1, devices[devices.indexOf(swapDevices[0])])[0];
       
-      console.log(devices);
-
       room.devices = devices;
+    },
+    setRoomPrefs(state, action: {payload: {room: number, prefs: {bgColor: string[], bgAngle: number}}}) {
+      const room = state.find(({id}) => id == action.payload.room);
+
+      room.prefs.bgColor = action.payload.prefs.bgColor;
+      room.prefs.bgAngle = action.payload.prefs.bgAngle;
     }
   },
 });
 
-export const { roomAdd, roomRefresh, swapDeviceOrder } = roomsSlice.actions;
+export const { roomAdd, roomRefresh, swapDeviceOrder, setRoomPrefs } = roomsSlice.actions;
 export default roomsSlice.reducer;

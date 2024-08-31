@@ -13,8 +13,8 @@ enum BackgroundType {
 
 export class RoomPrefs {
     order?: number[] = [];
-    bgAngle: number = 270;
-    bgColor: string[] = [
+    bgAngle?: number = 270;
+    bgColor?: string[] = [
         '#1a50e2',
         '#1096b1',
     ];
